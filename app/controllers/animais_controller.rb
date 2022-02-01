@@ -3,7 +3,8 @@ class AnimaisController < ApplicationController
 
   # GET /animais or /animais.json
   def index
-    @animais = Animal.get_animais(params)
+    user_id_logado = current_user.id rescue ""
+    @animais = Animal.get_animais(params, user_id_logado)
   end
 
   # GET /animais/1 or /animais/1.json

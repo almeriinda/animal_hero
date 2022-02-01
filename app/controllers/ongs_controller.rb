@@ -4,10 +4,11 @@ class OngsController < ApplicationController
   # GET /ongs
   # GET /ongs.json
   def index
+    user_id_logado = current_user.id rescue ""
     if params[:id].nil?
-      @ongs = Ong.all
+      @ongs = Ong.where(user_id: user_id_logado)
     else
-      @ongs = Ong.where(id: params[:id])
+      @ongs = Ong.where(id: params[:id], user_id: user_id_logado)
     end
   end
 
@@ -70,6 +71,7 @@ class OngsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ong
       if params[:action] != 'new'
+        user_id_logado = current_user.id rescue ""
         @ong = Ong.find(params[:id])
         @botao = "Atualizar"
       end  
