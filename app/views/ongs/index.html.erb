@@ -2,7 +2,7 @@
   <div class="row">
     <div class="form-group col-sm-2">
       <%= label_tag :nome %>
-      <%= select_tag :id, options_from_collection_for_select(Ong.all.order(:nome),"id","nome"),include_blank: 'Selecione' %>
+      <%= select_tag :id, options_for_select(@ongs.map{|ong| [ong.nome, ong.id] }, params[:id]),include_blank: 'Selecione' %>
     </div>
   </div>
 
@@ -40,7 +40,11 @@
       <td><%= ongs.nome %></td>
       <td><%= ongs.email %></td>
       <td><%= ongs.estado %></td>
-      <td><%= image_tag ongs.logo, size: "60x65" %></td>
+      <td>
+        <% if ongs.logo.present? %>
+            <%= image_tag ongs.logo, size: "60x65" rescue "" %>
+        <% end %>
+      </td>
 
       <td>
         <%= link_to content_tag(:i,'Mostrar'),

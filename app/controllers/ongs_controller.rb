@@ -1,5 +1,5 @@
 class OngsController < ApplicationController
-  before_action :set_ong, only: [:show, :edit, :update, :destroy]
+  before_action :set_ong, only: [:show, :edit, :update, :destroy, :new]
 
   # GET /ongs
   # GET /ongs.json
@@ -19,6 +19,7 @@ class OngsController < ApplicationController
   # GET /ongs/new
   def new
     @ong = Ong.new
+    @botao = 'Salvar'
   end
 
   # GET /ongs/1/edit
@@ -68,11 +69,15 @@ class OngsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ong
-      @ong = Ong.find(params[:id])
+      if params[:action] != 'new'
+        @ong = Ong.find(params[:id])
+        @botao = "Atualizar"
+      end  
+      @usuarios = User.all.map{|u| [u.name, u.id]}
     end
 
     # Only allow a list of trusted parameters through.
     def ong_params
-      params.require(:ong).permit(:nome, :email, :estado, :logo)
+      params.require(:ong).permit(:nome, :email, :estado, :logo, :user_id)
     end
 end
