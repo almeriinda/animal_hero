@@ -1,0 +1,46 @@
+<p>
+  <strong>Nome:</strong>
+  <%= @animal.nome %>
+</p>
+
+<p>
+  <strong>Raça:</strong>
+  <%= @animal.raca %>
+</p>
+
+<p>
+  <strong>Espécie:</strong>
+  <%= @animal.especie %>
+</p>
+
+<p>
+  <strong>Sexo:</strong>
+  <%= @animal.sexo %>
+</p>
+
+<p>
+  <strong>Peso:</strong>
+  <%= "#{@animal.peso} kg" %>
+</p>
+
+<p>
+  <strong>Data de nascimento:</strong>
+  <% if @animal.data_nascimento.present? %>
+    <%= @animal.data_nascimento.strftime('%d/%m/%Y') %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Situacao:</strong>
+  <%= @animal.situacao %>
+</p>
+
+<p>
+  <strong>Ong:</strong>
+  <%= @animal.ong.nome %>
+</p>
+
+<div>
+  <%= link_to 'Voltar', animais_path, class: 'btn btn-default' %>
+  <%= link_to 'Editar', edit_animal_path(@animal), class: 'btn btn-primary' %> 
+</div>

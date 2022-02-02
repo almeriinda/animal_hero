@@ -17,8 +17,12 @@
 
 <p>
   <strong>Logo:</strong>
-  <%= @ong.logo %>
+  <% if @ong.logo.present? %>
+    <%= image_tag @ong.logo, size: "60x65" rescue "" %>
+  <% end %>
 </p>
 
-<%= link_to 'Edit', edit_ong_path(@ong) %> |
-<%= link_to 'Back', ongs_path %>
+<div>
+  <%= link_to 'Voltar', ongs_path, class: 'btn btn-default' %>
+  <%= link_to 'Editar', edit_ong_path(@ong), class: 'btn btn-primary' %> 
+</div>

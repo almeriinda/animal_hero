@@ -1,0 +1,84 @@
+<%#= render 'layouts/error_messages', object: f.object %>
+<%= form_with(model: animal, local: true) do |form| %>
+  <% if animal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(animal.errors.count, "error") %> prohibited this animal from being saved:</h2>
+
+      <ul>
+      <% animal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label :nome %>
+        <%= form.text_field :nome, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label :raca, "Raça" %>
+        <%= form.text_field :raca, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label :especie, "Espécie" %>
+        <%= form.text_field :especie, class: 'form-control' %>
+      </div>
+    </div>
+  </div>     
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label :sexo %>
+        <%= form.select :sexo, options_for_select(@sexo), {prompt: "--Selecione uma opção--"}, {class: 'form-control'} %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label :peso %>
+        <%= form.number_field :peso, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label :data_nascimento %>
+        <% value_data_nascimento = @animal.data_nascimento.strftime('%d/%m/%Y') rescue "" %>
+        <%= form.text_field :data_nascimento, class: 'form-control date', 
+            value: value_data_nascimento  %>
+      </div>
+    </div>
+  </div>  
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= form.label :situacao, "Situação" %>
+        <%= form.select :situacao, options_for_select(@situacao), {prompt: "--Selecione uma opção--"}, {class: 'form-control'} %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= form.label :ong_id %>
+        <%= form.select :ong_id, options_for_select(@ongs), {prompt: "--Selecione uma opção--"}, {class: 'form-control'} %>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= link_to 'Voltar', animais_path, class: 'btn btn-default' %>
+    <%= form.submit @botao, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    $('.date').mask('00/00/0000');
+  });
+</script>  
